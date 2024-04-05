@@ -1,39 +1,40 @@
-﻿using System.Data;
-using Dapper;
+﻿using Dapper;
 using Lab2_PWA_Juegos.Data;
 using Lab2_PWA_Juegos.Models;
+using System.Data;
 
-namespace Lab2_PWA_Juegos.Repositories.Suppliers
+namespace Lab2_PWA_Juegos.Repositories.Customers
 {
-    public class SuppliersRepository : ISuppliersRepository
+    public class CustomersRepository : ICustomerRepository
     {
         private readonly ISqlDataAccess _dataAccess;
 
-        public SuppliersRepository(ISqlDataAccess dataAccess)
+
+        public CustomersRepository(ISqlDataAccess dataAccess)
         {
             _dataAccess = dataAccess;
         }
 
-        public IEnumerable<SuppliersModel> GetAll()
+        public IEnumerable<CustomersModel> GetAll()
         {
             using (var connection = _dataAccess.GetConnection())
             {
-                string storeProcedure = "dbo.spSuppliers_GetAll";
+                string storeProcedure = "dbo.spCustomers_GetAll";
 
-                return connection.Query<SuppliersModel>(
+                return connection.Query<CustomersModel>(
                                         storeProcedure,
                                         commandType: CommandType.StoredProcedure
                                         );
             }
         }
 
-        public SuppliersModel? GetById(int id)
+        public CustomersModel? GetById(int id)
         {
             using (var connection = _dataAccess.GetConnection())
             {
-                string storeProcedure = "dbo.spSuppliers_GetById";
+                string storeProcedure = "dbo.spCustomers_GetById";
 
-                return connection.QueryFirstOrDefault<SuppliersModel>(
+                return connection.QueryFirstOrDefault<CustomersModel>(
                                     storeProcedure,
                                     new { Id = id },
                                     commandType: CommandType.StoredProcedure
@@ -41,29 +42,29 @@ namespace Lab2_PWA_Juegos.Repositories.Suppliers
             }
         }
 
-        public void Add(SuppliersModel suppliersModel)
+        public void Add(CustomersModel customersModel)
         {
             using (var connection = _dataAccess.GetConnection())
             {
-                string storeProcedure = "dbo.spSuppliers_Insert";
+                string storeProcedure = "dbo.spCustomers_Insert";
 
                 connection.Execute(
                     storeProcedure,
-                    new { suppliersModel.SName, suppliersModel.SAddress, suppliersModel.Phone, suppliersModel.Email },
+                    new { customersModel.CName, customersModel.Email, customersModel.Phone },
                     commandType: CommandType.StoredProcedure
                     );
             }
         }
 
-        public void Edit(SuppliersModel suppliersModel)
+        public void Edit(CustomersModel customersModel)
         {
             using (var connection = _dataAccess.GetConnection())
             {
-                string storeProcedure = "dbo.spSuppliers_Update";
+                string storeProcedure = "dbo.spCustomers_Update";
 
                 connection.Execute(
                         storeProcedure,
-                        suppliersModel,
+                        customersModel,
                         commandType: CommandType.StoredProcedure
                     );
             }
@@ -73,7 +74,7 @@ namespace Lab2_PWA_Juegos.Repositories.Suppliers
         {
             using (var connection = _dataAccess.GetConnection())
             {
-                string storeProcedure = "dbo.spSuppliers_Delete";
+                string storeProcedure = "dbo.spCustomers_Delete";
 
                 connection.Execute(
                     storeProcedure,

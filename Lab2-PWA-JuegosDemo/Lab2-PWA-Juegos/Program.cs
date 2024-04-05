@@ -1,3 +1,7 @@
+using Lab2_PWA_Juegos.Data;
+using Lab2_PWA_Juegos.Repositories.Customers;
+using Lab2_PWA_Juegos.Repositories.Suppliers;
+
 namespace Lab2_PWA_Juegos
 {
     public class Program
@@ -8,6 +12,10 @@ namespace Lab2_PWA_Juegos
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddSingleton<ISqlDataAccess, SqlDataAccess>();
+            builder.Services.AddScoped<ISuppliersRepository, SuppliersRepository>();
+            builder.Services.AddScoped<ICustomerRepository, CustomersRepository>();
 
             var app = builder.Build();
 
