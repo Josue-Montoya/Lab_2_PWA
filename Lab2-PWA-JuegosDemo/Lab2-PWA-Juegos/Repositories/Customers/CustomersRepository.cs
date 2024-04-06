@@ -36,7 +36,7 @@ namespace Lab2_PWA_Juegos.Repositories.Customers
 
                 return connection.QueryFirstOrDefault<CustomersModel>(
                                     storeProcedure,
-                                    new { Id = id },
+                                    new { CustomerID = id },
                                     commandType: CommandType.StoredProcedure
                                    );
             }
@@ -70,7 +70,7 @@ namespace Lab2_PWA_Juegos.Repositories.Customers
             }
         }
 
-        public void Delete(int id)
+        public void Delete(int CustomerID)
         {
             using (var connection = _dataAccess.GetConnection())
             {
@@ -78,7 +78,7 @@ namespace Lab2_PWA_Juegos.Repositories.Customers
 
                 connection.Execute(
                     storeProcedure,
-                    new { id },
+                    new { CustomerID },
                     commandType: CommandType.StoredProcedure
                     );
             }

@@ -1,59 +1,69 @@
 ﻿@model IEnumerable<Lab2_PWA_Juegos.Models.SuppliersModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Proveedores";
 }
 
-<h1>Index</h1>
+<h1>Proveedores</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Agregar nuevo</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.SupplierID)
+                ID del Proveedor
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SName)
+                Nombre
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SAddress)
+                Dirección
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Phone)
+                Teléfono
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                Correo Electrónico
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SupplierID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SAddress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Phone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SupplierID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    <a asp-controller="Suppliers"
+                       asp-action="Edit"
+                       asp-route-id="@item.SupplierID"
+                       class="btn btn-primary">
+                        Editar
+                    </a>
+                    <a asp-controller="Suppliers"
+                       asp-action="Delete"
+                       asp-route-id="@item.SupplierID"
+                       class="btn btn-primary">
+                        Eliminar
+                    </a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

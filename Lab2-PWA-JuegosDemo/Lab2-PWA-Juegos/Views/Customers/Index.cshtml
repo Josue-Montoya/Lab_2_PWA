@@ -1,53 +1,63 @@
 ﻿@model IEnumerable<Lab2_PWA_Juegos.Models.CustomersModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Clientes";
 }
 
-<h1>Index</h1>
+<h1>Clientes</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Agregar nuevo</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CustomerID)
+                ID del Cliente
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CName)
+                Nombre
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                Correo Electrónico
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Phone)
+                Teléfono
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Phone)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    <a asp-controller="Customers"
+                       asp-action="Edit"
+                       asp-route-id="@item.CustomerID"
+                       class="btn btn-primary">
+                        Editar
+                    </a>
+                    <a asp-controller="Customers"
+                       asp-action="Delete"
+                       asp-route-id="@item.CustomerID"
+                       class="btn btn-primary">
+                        Eliminar
+                    </a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

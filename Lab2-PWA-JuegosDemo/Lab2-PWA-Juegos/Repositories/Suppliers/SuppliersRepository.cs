@@ -35,7 +35,7 @@ namespace Lab2_PWA_Juegos.Repositories.Suppliers
 
                 return connection.QueryFirstOrDefault<SuppliersModel>(
                                     storeProcedure,
-                                    new { Id = id },
+                                    new { SupplierID = id },
                                     commandType: CommandType.StoredProcedure
                                    );
             }
@@ -69,7 +69,7 @@ namespace Lab2_PWA_Juegos.Repositories.Suppliers
             }
         }
 
-        public void Delete(int id)
+        public void Delete(int SupplierID)
         {
             using (var connection = _dataAccess.GetConnection())
             {
@@ -77,7 +77,7 @@ namespace Lab2_PWA_Juegos.Repositories.Suppliers
 
                 connection.Execute(
                     storeProcedure,
-                    new { id },
+                    new { SupplierID },
                     commandType: CommandType.StoredProcedure
                     );
             }
