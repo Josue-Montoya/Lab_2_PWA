@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Lab2_PWA_Juegos.Models.DepartureModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Índice</h1>
+
+<p>
+    <a asp-action="Create">Crear Nuevo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Producto
+            </th>
+            <th>
+                Empleado
+            </th>
+            <th>
+                Cantidad
+            </th>
+            <th>
+                Precio Unitario
+            </th>
+            <th>
+                Total
+            </th>
+            <th>
+                Fecha de Salida
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Products.PName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employees.EName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DDate)
+                </td>
+                <td>
+                    <a asp-controller="Departure"
+                       asp-action="Edit"
+                       asp-route-id="@item.DepartureID"
+                       class="btn btn-primary">
+                        Editar
+                    </a>
+                    <a asp-controller="Departure"
+                       asp-action="Delete"
+                       asp-route-id="@item.DepartureID"
+                       class="btn btn-danger">
+                        Eliminar
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

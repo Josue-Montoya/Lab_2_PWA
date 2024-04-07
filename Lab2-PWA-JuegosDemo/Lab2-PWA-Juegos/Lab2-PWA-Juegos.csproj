@@ -8,6 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\CustomersViews\**" />
+    <Compile Remove="Views\SuppliersViews\**" />
+    <Content Remove="Views\CustomersViews\**" />
+    <Content Remove="Views\SuppliersViews\**" />
+    <EmbeddedResource Remove="Views\CustomersViews\**" />
+    <EmbeddedResource Remove="Views\SuppliersViews\**" />
+    <None Remove="Views\CustomersViews\**" />
+    <None Remove="Views\SuppliersViews\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.35" />
     <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.3" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
@@ -17,11 +28,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\CustomersViews\" />
-    <Folder Include="Views\SuppliersViews\" />
   </ItemGroup>
 
 </Project>

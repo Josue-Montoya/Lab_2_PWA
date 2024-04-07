@@ -6,11 +6,11 @@ using System.Data;
 
 namespace Lab2_PWA_Juegos.Repositories.Employees
 {
-    public class EmployeesRepository : IEmployeesRepository
+    public class _employeesRepository : IEmployeesRepository
     {
         private readonly ISqlDataAccess _dataAccess;
 
-        public EmployeesRepository(ISqlDataAccess dataAccess)
+        public _employeesRepository(ISqlDataAccess dataAccess)
         {
             _dataAccess = dataAccess;
         }

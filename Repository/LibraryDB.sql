@@ -39,21 +39,22 @@ CREATE TABLE Products (
 );
 GO
 
-CREATE TABLE Entrace (
-    PurchaseDetailID INT PRIMARY KEY IDENTITY(1,1),
+Create TABLE Entrance (
+    EntranceID INT PRIMARY KEY IDENTITY(1,1),
     ProductID INT,
     SupplierID INT,
     Quantity INT,
     UnitPrice DECIMAL(10, 2),
-    Total MONEY,
-    EDate DATE,
+    Total DECIMAL(10, 2),
+    EDate DATETIME,
     FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
     FOREIGN KEY (SupplierID) REFERENCES Suppliers(SupplierID)
 );
-GO
 
-CREATE TABLE Departures (
-    SaleDetailID INT PRIMARY KEY IDENTITY(1,1),
+
+GO
+Create TABLE Departures (
+    DepartureID INT PRIMARY KEY IDENTITY(1,1),
     ProductID INT,
     EmployeeID INT,
     Quantity INT,
@@ -241,3 +242,219 @@ BEGIN
     WHERE SupplierID = @SupplierID
 END;
 GO
+--------------------------------------------------------------
+--SP_Product
+CREATE PROCEDURE dbo.spProducts_GetAll
+AS
+BEGIN
+    SELECT Products.ProductID, Products.PName, Products.PDescription, Products.Price, Products.Stock, Suppliers.SName
+    FROM Products
+    INNER JOIN Suppliers
+    ON Products.SupplierID = Suppliers.SupplierID;
+END;
+
+GO
+CREATE PROCEDURE dbo.spProducts_GetByID
+(@ProductID INT)
+AS
+BEGIN 
+    SELECT ProductID, PName, PDescription, Price, Stock, SupplierID
+    FROM Products
+    WHERE ProductID = @ProductID;
+END;
+
+GO
+CREATE PROCEDURE dbo.spProducts_Insert
+(
+    @PName VARCHAR(255),
+    @PDescription VARCHAR(255),
+    @Price DECIMAL(18, 2),
+    @Stock INT,
+    @SupplierID INT
+)
+AS
+BEGIN
+    INSERT INTO Products (PName, PDescription, Price, Stock, SupplierID)
+    VALUES (@PName, @PDescription, @Price, @Stock, @SupplierID);
+END;
+
+GO
+CREATE PROCEDURE dbo.spProducts_Update
+(
+    @ProductID INT,
+    @PName VARCHAR(255),
+    @PDescription VARCHAR(255),
+    @Price DECIMAL(18, 2),
+    @Stock INT,
+    @SupplierID INT
+)
+AS
+BEGIN
+    UPDATE Products
+    SET PName = @PName,
+        PDescription = @PDescription,
+        Price = @Price,
+        Stock = @Stock,
+        SupplierID = @SupplierID
+    WHERE ProductID = @ProductID;
+END;
+
+GO
+CREATE PROCEDURE dbo.spProducts_Delete
+(
+    @ProductID INT
+)
+AS
+BEGIN
+    DELETE FROM Products
+    WHERE ProductID = @ProductID;
+END;
+GO
+--------------------------------------------------------------
+-- SP_Entrances
+Create PROCEDURE dbo.spEntrance_GetAll
+AS
+BEGIN
+    SELECT Entrance.EntranceID, Entrance.ProductID, Entrance.SupplierID, Entrance.Quantity, Entrance.UnitPrice, Entrance.Total, Entrance.EDate, Products.PName, Suppliers.SName
+    FROM Entrance
+    INNER JOIN Products ON Entrance.ProductID = Products.ProductID
+    INNER JOIN Suppliers ON Entrance.SupplierID = Suppliers.SupplierID;
+END;
+
+GO
+
+Create PROCEDURE dbo.spEntrance_GetByID
+(@EntranceID INT)
+AS
+BEGIN 
+    SELECT EntranceID, ProductID, SupplierID, Quantity, UnitPrice, Total, EDate
+    FROM Entrance
+    WHERE EntranceID = @EntranceID;
+END;
+
+GO
+
+Create PROCEDURE dbo.spEntrance_Insert
+(
+    @ProductID INT,
+    @SupplierID INT,
+    @Quantity INT,
+    @UnitPrice DECIMAL(10, 2),
+    @Total DECIMAL(10, 2),
+    @EDate DATETIME
+)
+AS
+BEGIN
+    INSERT INTO Entrance (ProductID, SupplierID, Quantity, UnitPrice, Total, EDate)
+    VALUES (@ProductID, @SupplierID, @Quantity, @UnitPrice, @Total, @EDate);
+END;
+
+
+GO
+
+Alter PROCEDURE dbo.spEntrance_Update
+(
+    @EntranceID INT,
+    @ProductID INT,
+    @SupplierID INT,
+    @Quantity INT,
+    @UnitPrice DECIMAL(10, 2),
+	@Total Decimal(10,2),
+    @EDate DATETIME
+)
+AS
+BEGIN
+    UPDATE Entrance
+    SET ProductID = @ProductID,
+        SupplierID = @SupplierID,
+        Quantity = @Quantity,
+        UnitPrice = @UnitPrice,
+		Total = @Total,
+        EDate = @EDate
+    WHERE EntranceID = @EntranceID;
+END;
+
+GO
+
+Alter PROCEDURE dbo.spEntrance_Delete
+(
+    @EntranceID INT
+)
+AS
+BEGIN
+    DELETE FROM Entrance
+    WHERE EntranceID = @EntranceID;
+END;
+GO
+-------------------------------------------------------------
+--SP_Departures
+CREATE PROCEDURE dbo.spDeparture_GetAll
+AS
+BEGIN
+    SELECT Departures.DepartureID, Departures.ProductID, Departures.EmployeeID, Departures.Quantity, Departures.UnitPrice, Departures.Total, Departures.DDate, Products.PName, Employees.EName
+    FROM Departures
+    INNER JOIN Products ON Departures.ProductID = Products.ProductID
+    INNER JOIN Employees ON Departures.EmployeeID = Employees.EmployeeID;
+END;
+GO
+
+CREATE PROCEDURE dbo.spDeparture_GetByID
+(
+    @DepartureID INT
+)
+AS
+BEGIN 
+    SELECT DepartureID, ProductID, EmployeeID, Quantity, UnitPrice, Total, DDate
+    FROM Departures
+    WHERE DepartureID = @DepartureID;
+END;
+GO
+
+CREATE PROCEDURE dbo.spDeparture_Insert
+(
+    @ProductID INT,
+    @EmployeeID INT,
+    @Quantity INT,
+    @UnitPrice DECIMAL(10, 2),
+    @Total MONEY,
+    @DDate DATE
+)
+AS
+BEGIN
+    INSERT INTO Departures (ProductID, EmployeeID, Quantity, UnitPrice, Total, DDate)
+    VALUES (@ProductID, @EmployeeID, @Quantity, @UnitPrice, @Total, @DDate);
+END;
+GO
+
+Create PROCEDURE dbo.spDeparture_Update
+(
+    @DepartureID INT,
+    @ProductID INT,
+    @EmployeeID INT,
+    @Quantity INT,
+    @UnitPrice DECIMAL(10, 2),
+    @Total MONEY,
+    @DDate DATE
+)
+AS
+BEGIN
+    UPDATE Departures
+    SET ProductID = @ProductID,
+        EmployeeID = @EmployeeID,
+        Quantity = @Quantity,
+        UnitPrice = @UnitPrice,
+        Total = @Total,
+        DDate = @DDate
+    WHERE DepartureID = @DepartureID;
+END;
+GO
+
+Create PROCEDURE dbo.spDeparture_Delete
+(
+    @DepartureID INT
+)
+AS
+BEGIN
+    DELETE FROM Departures
+    WHERE DepartureID = @DepartureID;
+END;

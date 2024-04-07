@@ -1,0 +1,78 @@
+﻿@model Lab2_PWA_Juegos.Models.DepartureModel
+
+@{
+    ViewData["Title"] = "Crear";
+}
+
+<h1>Crear</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="DepartureID" />
+            <div class="form-group">
+                <label asp-for="ProductID" class="control-label">Producto</label>
+                <select asp-for="ProductID" asp-items="@ViewBag.Products" class="form-select">
+                    <option value="">Seleccione</option>
+                </select>
+                <span asp-validation-for="ProductID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmployeeID" class="control-label">Empleado</label>
+                <select asp-for="EmployeeID" asp-items="@ViewBag.Employees" class="form-select">
+                    <option value="">Seleccione</option>
+                </select>
+                <span asp-validation-for="EmployeeID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quantity" class="control-label">Cantidad</label>
+                <input asp-for="Quantity" type="text" class="form-control" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UnitPrice" class="control-label">Precio Unitario</label>
+                <input asp-for="UnitPrice" class="form-control" />
+                <span asp-validation-for="UnitPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Total" class="control-label">Total</label>
+                <input asp-for="Total" class="form-control" readonly />
+                <span asp-validation-for="Total" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DDate" class="control-label">Fecha</label>
+                <input asp-for="DDate" class="form-control" />
+                <span asp-validation-for="DDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Crear" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Volver al Listado</a>
+</div>
+
+@section Scripts {
+    <script>
+        // Función para calcular el total
+        function calcularTotal() {
+            var cantidad = parseInt(document.getElementById("Quantity").value);
+            var precioUnitario = parseFloat(document.getElementById("UnitPrice").value);
+            var total = cantidad * precioUnitario;
+
+            // Mostrar el total en el campo correspondiente
+            document.getElementById("Total").value = total.toFixed(2);
+        }
+
+        // Event listener para calcular el total cuando cambian los valores de Quantity o UnitPrice
+        document.getElementById("Quantity").addEventListener("change", calcularTotal);
+        document.getElementById("UnitPrice").addEventListener("change", calcularTotal);
+    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
