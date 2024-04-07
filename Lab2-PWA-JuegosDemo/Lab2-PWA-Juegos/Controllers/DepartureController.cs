@@ -104,8 +104,18 @@ namespace Lab2_PWA_Juegos.Controllers
             {
                 return NotFound();
             }
+
+            // Obtener todos los productos y empleados
+            var allProducts = _departuresRepository.GetAllProducts();
+            var allEmployees = _departuresRepository.GetAllEmployees();
+
+            // Buscar el producto y empleado asociado con la salida
+            departure.Products = allProducts.FirstOrDefault(p => p.ProductID == departure.ProductID);
+            departure.Employees = allEmployees.FirstOrDefault(e => e.EmployeeID == departure.EmployeeID);
+
             return View(departure);
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -120,9 +130,10 @@ namespace Lab2_PWA_Juegos.Controllers
             }
             catch
             {
-
+                // Manejar errores aquí si es necesario
                 return View(departure);
             }
         }
+
     }
 }

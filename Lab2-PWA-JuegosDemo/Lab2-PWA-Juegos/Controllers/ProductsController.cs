@@ -84,14 +84,25 @@ namespace Lab2_PWA_Juegos.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            var products = _productsRepository.GetById(id);
+            var product = _productsRepository.GetById(id);
 
-            if (products == null)
+            if (product == null)
             {
                 return NotFound();
             }
-            return View(products);
+
+            // Obtener todos los proveedores
+            var allSuppliers = _productsRepository.GetAllSuppliers();
+
+            // Buscar el proveedor asociado con el producto
+            var SName = allSuppliers.FirstOrDefault(s => s.SupplierID == product.SupplierID)?.SName;
+
+            // Verifica si SName tiene el valor correcto
+            ViewBag.SName = SName;
+
+            return View(product);
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -106,9 +117,11 @@ namespace Lab2_PWA_Juegos.Controllers
             }
             catch
             {
-
+                // Manejar errores aquí si es necesario
                 return View(products);
             }
         }
+
+
     }
 }

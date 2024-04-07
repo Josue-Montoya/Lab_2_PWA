@@ -104,6 +104,15 @@ namespace Lab2_PWA_Juegos.Controllers
             {
                 return NotFound();
             }
+
+            // Obtener todos los productos y empleados
+            var allProducts = _entranceRepository.GetAllProducts();
+            var allSuppliers = _entranceRepository.GetAllSuppliers();
+
+            // Buscar el producto y proveedor asociado con la entrada
+            entrance.Products = allProducts.FirstOrDefault(p => p.ProductID == entrance.ProductID);
+            entrance.Suppliers = allSuppliers.FirstOrDefault(s => s.SupplierID == entrance.SupplierID);
+
             return View(entrance);
         }
 
@@ -120,11 +129,13 @@ namespace Lab2_PWA_Juegos.Controllers
             }
             catch
             {
-
+                // Manejar errores aquí si es necesario
                 return View(entrance);
             }
         }
-    }
 
-    
+
+
+
+    }
 }
