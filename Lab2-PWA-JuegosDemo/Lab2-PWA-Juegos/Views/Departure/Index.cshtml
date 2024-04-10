@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="mt-3 mb-3">
-                <a asp-action="Create" asp-controller="Departure" class="btn btn-success">Agregar Nuevo</a>
+                <a asp-action="Create" asp-controller="Departure" class="btn btn-success">Agregar nuevo</a>
             </div>
             <table class="table table-bordered table-striped table-responsive" id="DepartureTable">
                 <thead>
@@ -52,10 +52,10 @@
                                 @Html.DisplayFor(modelItem => item.Quantity)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.UnitPrice)
+                                $@Html.DisplayFor(modelItem => item.UnitPrice)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Total)
+                                $@Html.DisplayFor(modelItem => item.Total)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.DDate)
