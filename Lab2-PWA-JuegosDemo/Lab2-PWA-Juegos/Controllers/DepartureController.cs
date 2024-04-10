@@ -38,6 +38,7 @@ namespace Lab2_PWA_Juegos.Controllers
             return View();
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(DepartureModel departure)
@@ -45,6 +46,9 @@ namespace Lab2_PWA_Juegos.Controllers
             try
             {
                 _departuresRepository.Add(departure);
+
+                TempData["createdeparture"] = "Datos guardados exitosamente";
+
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -85,6 +89,9 @@ namespace Lab2_PWA_Juegos.Controllers
             try
             {
                 _departuresRepository.Edit(departure);
+
+                TempData["editdeparture"] = "Datos editados exitosamente";
+
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -125,7 +132,8 @@ namespace Lab2_PWA_Juegos.Controllers
             {
                 _departuresRepository.Delete(departure.DepartureID);
 
-                TempData["message"] = "Producto Eliminado Exitosamente";
+                TempData["deletedeparture"] = "Datos eliminado exitosamente";
+
                 return RedirectToAction(nameof(Index));
             }
             catch

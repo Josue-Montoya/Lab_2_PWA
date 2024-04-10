@@ -1,10 +1,10 @@
 ﻿@model Lab2_PWA_Juegos.Models.ProductsModel
 
 @{
-    ViewData["Title"] = "Eliminar";
+    ViewData["Title"] = "Eliminar producto";
 }
 
-<h1>Eliminar</h1>
+<h1>Eliminar producto</h1>
 
 <h3>¿Está seguro de que desea eliminar esto?</h3>
 <div>
@@ -35,7 +35,7 @@
             @Html.DisplayFor(model => model.Price)
         </dd>
         <dt class="col-sm-2">
-            Cantidad
+            Existencias
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Stock)
@@ -51,7 +51,7 @@
 
     <form asp-action="Delete" method="post">
         @Html.HiddenFor(model => model.ProductID)
-        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
-        <a asp-action="Index">Regresar a la Lista</a>
+        <input type="submit" value="Eliminar" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-primary">Regresar al listado</a>
     </form>
 </div>

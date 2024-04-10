@@ -4,7 +4,7 @@
     ViewData["Title"] = "Crear";
 }
 
-<h1>Crear</h1>
+<h1>Crear salida</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -32,7 +32,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="UnitPrice" class="control-label">Precio Unitario</label>
-                <input asp-for="UnitPrice" class="form-control" />
+                <input asp-for="UnitPrice" class="form-control" readonly />
                 <span asp-validation-for="UnitPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -45,15 +45,13 @@
                 <input asp-for="DDate" class="form-control" />
                 <span asp-validation-for="DDate" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
-                <input type="submit" value="Crear" class="btn btn-primary" />
+                <input type="submit" value="Crear" class="btn btn-success" />
+                <a asp-action="Index" class="btn btn-primary">Regresar al listado</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Volver al Listado</a>
 </div>
 
 @section Scripts {
@@ -72,6 +70,27 @@
         document.getElementById("Quantity").addEventListener("change", calcularTotal);
         document.getElementById("UnitPrice").addEventListener("change", calcularTotal);
     </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#ProductID').change(function () {
+                var productId = $(this).val();
+                $.ajax({
+                    url: '@Url.Action("GetPriceById", "Products")',
+                    type: 'GET',
+                    data: { productId: productId },
+                    success: function (response) {
+                        
+                        $('#UnitPrice').val(response);
+                    },
+                    error: function () {
+                        alert('Error al obtener el precio del producto.');
+                    }
+                });
+            });
+        });
+    </script>
+
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }

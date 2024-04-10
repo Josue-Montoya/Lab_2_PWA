@@ -7,6 +7,7 @@ namespace Lab2_PWA_Juegos.Repositories.Products
         void Add(ProductsModel productsModel);
         void Delete(int id);
         void Edit(ProductsModel productsModel);
+        decimal GetPriceById(int productId);
         IEnumerable<ProductsModel> GetAll();
 
         IEnumerable<SuppliersModel> GetAllSuppliers();

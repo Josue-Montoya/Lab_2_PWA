@@ -97,5 +97,14 @@ namespace Lab2_PWA_Juegos.Repositories.Products
             }
 
         }
+
+        public decimal GetPriceById(int productId)
+        {
+            using (var connection = _dataAccess.GetConnection())
+            {
+                string query = "SELECT Price FROM Products WHERE ProductID = @ProductId";
+                return connection.QuerySingleOrDefault<decimal>(query, new { ProductId = productId });
+            }
+        }
     }
 }

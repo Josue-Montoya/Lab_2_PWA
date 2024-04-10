@@ -39,6 +39,9 @@ namespace Lab2_PWA_Juegos.Controllers
             try
             {
                 _productsRepository.Add(products);
+
+                TempData["createproduts"] = "Datos guardados exitosamente";
+
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -48,6 +51,14 @@ namespace Lab2_PWA_Juegos.Controllers
                
             }
         }
+
+        [HttpGet]
+        public ActionResult GetPriceById(int productId)
+        {
+            var price = _productsRepository.GetPriceById(productId);
+            return Json(price);
+        }
+
 
         [HttpGet]
         public ActionResult Edit(int id) 
@@ -71,6 +82,9 @@ namespace Lab2_PWA_Juegos.Controllers
             try
             {
                 _productsRepository.Edit(products);
+
+                TempData["editdproducts"] = "Datos editados exitosamente";
+
                 return RedirectToAction(nameof(Index));
             }
             catch 
@@ -112,7 +126,7 @@ namespace Lab2_PWA_Juegos.Controllers
             {
                 _productsRepository.Delete(products.ProductID);
 
-                TempData["message"] = "Producto Eliminado Exitosamente";
+                TempData["deleteproducts"] = "Datos eliminados exitosamente";
                 return RedirectToAction(nameof(Index));
             }
             catch

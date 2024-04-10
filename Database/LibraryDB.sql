@@ -1,6 +1,6 @@
-CREATE DATABASE LibraryGamesDB
+CREATE DATABASE LibraryDB
 GO
-USE LibraryGamesDB
+USE LibraryDB
 GO
 CREATE TABLE Suppliers (
     SupplierID INT PRIMARY KEY IDENTITY(1,1),
@@ -59,21 +59,14 @@ Create TABLE Departures (
     EmployeeID INT,
     Quantity INT,
     UnitPrice DECIMAL(10, 2),
-    Total MONEY,
-    DDate DATE,
+    Total DECIMAL(10, 2),
+    DDate DATETIME,
     FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
     FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID)
 );
 GO
-CREATE PROCEDURE dbo.spCustomers_Delete
-(@CustomerID int)
-AS
-BEGIN
-	DELETE FROM Customers WHERE CustomerID = @CustomerID
-END;
-GO
 
-
+----------------------------------------------------------------
 CREATE PROCEDURE dbo.spCustomers_GetAll
 AS
 BEGIN
@@ -122,15 +115,17 @@ BEGIN
     WHERE CustomerID = @CustomerID
 END;
 GO
-CREATE PROCEDURE dbo.spEmployees_Delete
-(@EmployeeID int)
+
+
+CREATE PROCEDURE dbo.spCustomers_Delete
+(@CustomerID int)
 AS
 BEGIN
-	DELETE FROM Employees WHERE EmployeeID = @EmployeeID
+	DELETE FROM Customers WHERE CustomerID = @CustomerID
 END;
 GO
 
-
+------------------------------------------------------
 CREATE PROCEDURE dbo.spEmployees_GetAll
 AS
 BEGIN
@@ -182,15 +177,18 @@ BEGIN
     WHERE EmployeeID = @EmployeeID
 END;
 GO
-CREATE PROCEDURE dbo.spSuppliers_Delete
-(@SupplierID int)
+
+
+CREATE PROCEDURE dbo.spEmployees_Delete
+(@EmployeeID int)
 AS
 BEGIN
-	DELETE FROM Suppliers WHERE SupplierID = @SupplierID
+	DELETE FROM Employees WHERE EmployeeID = @EmployeeID
 END;
 GO
 
 
+-----------------------------------------------------------
 CREATE PROCEDURE dbo.spSuppliers_GetAll
 AS
 BEGIN
@@ -242,6 +240,17 @@ BEGIN
     WHERE SupplierID = @SupplierID
 END;
 GO
+
+
+CREATE PROCEDURE dbo.spSuppliers_Delete
+(@SupplierID int)
+AS
+BEGIN
+	DELETE FROM Suppliers WHERE SupplierID = @SupplierID
+END;
+GO
+
+
 --------------------------------------------------------------
 --SP_Product
 CREATE PROCEDURE dbo.spProducts_GetAll
@@ -252,8 +261,9 @@ BEGIN
     INNER JOIN Suppliers
     ON Products.SupplierID = Suppliers.SupplierID;
 END;
-
 GO
+
+
 CREATE PROCEDURE dbo.spProducts_GetByID
 (@ProductID INT)
 AS
@@ -262,8 +272,9 @@ BEGIN
     FROM Products
     WHERE ProductID = @ProductID;
 END;
-
 GO
+
+
 CREATE PROCEDURE dbo.spProducts_Insert
 (
     @PName VARCHAR(255),
@@ -277,8 +288,9 @@ BEGIN
     INSERT INTO Products (PName, PDescription, Price, Stock, SupplierID)
     VALUES (@PName, @PDescription, @Price, @Stock, @SupplierID);
 END;
-
 GO
+
+
 CREATE PROCEDURE dbo.spProducts_Update
 (
     @ProductID INT,
@@ -298,8 +310,9 @@ BEGIN
         SupplierID = @SupplierID
     WHERE ProductID = @ProductID;
 END;
-
 GO
+
+
 CREATE PROCEDURE dbo.spProducts_Delete
 (
     @ProductID INT
@@ -310,6 +323,8 @@ BEGIN
     WHERE ProductID = @ProductID;
 END;
 GO
+
+
 --------------------------------------------------------------
 -- SP_Entrances
 Create PROCEDURE dbo.spEntrance_GetAll
@@ -320,8 +335,8 @@ BEGIN
     INNER JOIN Products ON Entrance.ProductID = Products.ProductID
     INNER JOIN Suppliers ON Entrance.SupplierID = Suppliers.SupplierID;
 END;
-
 GO
+
 
 Create PROCEDURE dbo.spEntrance_GetByID
 (@EntranceID INT)
@@ -331,8 +346,8 @@ BEGIN
     FROM Entrance
     WHERE EntranceID = @EntranceID;
 END;
-
 GO
+
 
 Create PROCEDURE dbo.spEntrance_Insert
 (
@@ -348,11 +363,10 @@ BEGIN
     INSERT INTO Entrance (ProductID, SupplierID, Quantity, UnitPrice, Total, EDate)
     VALUES (@ProductID, @SupplierID, @Quantity, @UnitPrice, @Total, @EDate);
 END;
-
-
 GO
 
-Alter PROCEDURE dbo.spEntrance_Update
+
+CREATE PROCEDURE dbo.spEntrance_Update
 (
     @EntranceID INT,
     @ProductID INT,
@@ -373,10 +387,10 @@ BEGIN
         EDate = @EDate
     WHERE EntranceID = @EntranceID;
 END;
-
 GO
 
-Alter PROCEDURE dbo.spEntrance_Delete
+
+CREATE PROCEDURE dbo.spEntrance_Delete
 (
     @EntranceID INT
 )
@@ -386,6 +400,8 @@ BEGIN
     WHERE EntranceID = @EntranceID;
 END;
 GO
+
+
 -------------------------------------------------------------
 --SP_Departures
 CREATE PROCEDURE dbo.spDeparture_GetAll
@@ -397,6 +413,7 @@ BEGIN
     INNER JOIN Employees ON Departures.EmployeeID = Employees.EmployeeID;
 END;
 GO
+
 
 CREATE PROCEDURE dbo.spDeparture_GetByID
 (
@@ -410,14 +427,15 @@ BEGIN
 END;
 GO
 
+
 CREATE PROCEDURE dbo.spDeparture_Insert
 (
     @ProductID INT,
     @EmployeeID INT,
     @Quantity INT,
     @UnitPrice DECIMAL(10, 2),
-    @Total MONEY,
-    @DDate DATE
+    @Total DECIMAL(10, 2),
+    @DDate DATETIME
 )
 AS
 BEGIN
@@ -426,6 +444,7 @@ BEGIN
 END;
 GO
 
+
 Create PROCEDURE dbo.spDeparture_Update
 (
     @DepartureID INT,
@@ -433,8 +452,8 @@ Create PROCEDURE dbo.spDeparture_Update
     @EmployeeID INT,
     @Quantity INT,
     @UnitPrice DECIMAL(10, 2),
-    @Total MONEY,
-    @DDate DATE
+    @Total DECIMAL(10, 2),
+    @DDate DATETIME
 )
 AS
 BEGIN
@@ -449,6 +468,7 @@ BEGIN
 END;
 GO
 
+
 Create PROCEDURE dbo.spDeparture_Delete
 (
     @DepartureID INT
@@ -458,3 +478,36 @@ BEGIN
     DELETE FROM Departures
     WHERE DepartureID = @DepartureID;
 END;
+GO
+
+Alter TRIGGER UpdateProductStockOnDepartures
+ON Departures
+AFTER INSERT
+AS
+BEGIN
+    UPDATE Products
+    SET Stock = CASE
+                    WHEN (Stock - (SELECT Quantity FROM inserted WHERE ProductID = Products.ProductID)) < 0
+                        THEN 0
+                    ELSE (Stock - (SELECT Quantity FROM inserted WHERE ProductID = Products.ProductID))
+               END
+    FROM Products
+    INNER JOIN inserted ON Products.ProductID = inserted.ProductID;
+END;
+
+
+GO
+
+ALTER TRIGGER UpdateProductStock
+ON Entrance
+AFTER INSERT
+AS
+BEGIN
+    UPDATE Products
+    SET Stock = Stock + (SELECT Quantity FROM inserted WHERE ProductID = Products.ProductID)
+    FROM Products
+    INNER JOIN inserted ON Products.ProductID = inserted.ProductID;
+END;
+
+Go
+
