@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
+<<<<<<< HEAD:Lab2-PWA-JuegosDemo/Lab2-PWA-Library.sln
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lab2-PWA-Library", "Lab2-PWA-Juegos\Lab2-PWA-Library.csproj", "{C2740E27-EF9D-4616-AA27-877315943D98}"
+=======
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lab2-PWA-Juegos", "Lab2-PWA-Juegos\Lab2-PWA-Juegos.csproj", "{C2740E27-EF9D-4616-AA27-877315943D98}"
+>>>>>>> 8512da874a2eb4796883b6cc317afd09b0057544:Lab2-PWA-JuegosDemo/Lab2-PWA-JuegosDemo.sln
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

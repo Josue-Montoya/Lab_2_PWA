@@ -478,6 +478,7 @@ BEGIN
     DELETE FROM Departures
     WHERE DepartureID = @DepartureID;
 END;
+<<<<<<< HEAD
 GO
 
 Alter TRIGGER UpdateProductStockOnDepartures
@@ -511,3 +512,6 @@ END;
 
 Go
 
+=======
+GO
+>>>>>>> 8512da874a2eb4796883b6cc317afd09b0057544
