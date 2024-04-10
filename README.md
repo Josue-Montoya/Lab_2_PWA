@@ -1,4 +1,4 @@
-# Lab_2_PWA
+# Lab_2_PWA_Grupo5
 
 #Mauricio Moisés Carranza Viera U20210127
 
