@@ -40,7 +40,7 @@ namespace Lab2_PWA_Juegos.Controllers
             {
                 _employeesRepository.Add(employeesModel);
 
-                TempData["message"] = "Datos guardados exitosamente";
+                TempData["createemployees"] = "Datos guardados exitosamente";
 
                 return RedirectToAction(nameof(Index));
             }
@@ -73,7 +73,7 @@ namespace Lab2_PWA_Juegos.Controllers
             {
                 _employeesRepository.Edit(employeesModel);
 
-                TempData["message"] = "Datos editados correctamente";
+                TempData["editdemployees"] = "Datos editados exitosamente";
 
                 return RedirectToAction(nameof(Index));
             }
@@ -105,7 +105,7 @@ namespace Lab2_PWA_Juegos.Controllers
             {
                 _employeesRepository.Delete(employeesModel.EmployeeID);
 
-                TempData["message"] = "Dato eliminado exitosamente";
+                TempData["deleteemployees"] = "Dato eliminados exitosamente";
 
                 return RedirectToAction(nameof(Index));
             }

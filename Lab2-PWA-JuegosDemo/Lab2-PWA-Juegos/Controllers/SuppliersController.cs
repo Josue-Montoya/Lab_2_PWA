@@ -39,7 +39,7 @@ namespace Lab2_PWA_Juegos.Controllers
             {
                 _suppliersRepository.Add(suppliersModel);
 
-                TempData["message"] = "Datos guardados exitosamente";
+                TempData["createsuppliers"] = "Datos guardados exitosamente";
 
                 return RedirectToAction(nameof(Index));
             }
@@ -72,7 +72,7 @@ namespace Lab2_PWA_Juegos.Controllers
             {
                 _suppliersRepository.Edit(suppliersModel);
 
-                TempData["message"] = "Datos editados correctamente";
+                TempData["editdsuppliers"] = "Datos editados exitosamente";
 
                 return RedirectToAction(nameof(Index));
             }
@@ -104,7 +104,7 @@ namespace Lab2_PWA_Juegos.Controllers
             {
                 _suppliersRepository.Delete(suppliersModel.SupplierID);
 
-                TempData["message"] = "Dato eliminado exitosamente";
+                TempData["deletesuppliers"] = "Dato eliminados exitosamente";
 
                 return RedirectToAction(nameof(Index));
             }

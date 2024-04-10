@@ -4,7 +4,7 @@
     ViewData["Title"] = "Eliminar";
 }
 
-<h1>Eliminar</h1>
+<h1>Eliminar salida</h1>
 
 <h3>¿Estás seguro de que quieres eliminar esto?</h3>
 <div>
@@ -58,7 +58,7 @@
 
     <form asp-action="Delete" method="post">
         @Html.HiddenFor(model => model.DepartureID)
-        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
-        <a asp-action="Index">Volver a la lista</a>
+        <input type="submit" value="Eliminar" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-primary">Regresar al listado</a>
     </form>
 </div>

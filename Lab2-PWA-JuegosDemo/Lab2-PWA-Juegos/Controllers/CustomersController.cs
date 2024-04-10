@@ -1,6 +1,7 @@
 ﻿using Lab2_PWA_Juegos.Models;
 using Lab2_PWA_Juegos.Repositories.Customers;
 using Lab2_PWA_Juegos.Repositories.Suppliers;
+using Lab2_PWA_Juegos.Services_Email;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lab2_PWA_Juegos.Controllers
@@ -8,10 +9,12 @@ namespace Lab2_PWA_Juegos.Controllers
     public class CustomersController : Controller
     {
         private readonly ICustomerRepository _customerRepository;
+        private readonly IEmailService _emailService;
 
-        public CustomersController(ICustomerRepository customerRepository)
+        public CustomersController(ICustomerRepository customerRepository, IEmailService emailService)
         {
             _customerRepository = customerRepository;
+            _emailService = emailService;
         }
 
         public ActionResult Index()
@@ -40,7 +43,13 @@ namespace Lab2_PWA_Juegos.Controllers
             {
                 _customerRepository.Add(customersModel);
 
-                TempData["message"] = "Datos guardados exitosamente";
+                TempData["createcustomers"] = "Datos guardados exitosamente";
+
+                string email = customersModel.Email;
+                string subject = "Bienvenid@";
+                string body = "Bievenido a la libreria " + customersModel.CName;
+
+                _emailService.SendEmail(email, customersModel.CName, subject, body);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -73,7 +82,7 @@ namespace Lab2_PWA_Juegos.Controllers
             {
                 _customerRepository.Edit(customersModel);
 
-                TempData["message"] = "Datos editados correctamente";
+                TempData["editcustomers"] = "Datos editados exitosamente";
 
                 return RedirectToAction(nameof(Index));
             }
@@ -105,7 +114,7 @@ namespace Lab2_PWA_Juegos.Controllers
             {
                 _customerRepository.Delete(customersModel.CustomerID);
 
-                TempData["message"] = "Dato eliminado exitosamente";
+                TempData["deletecustomers"] = "Dato eliminados exitosamente";
 
                 return RedirectToAction(nameof(Index));
             }

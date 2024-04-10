@@ -45,6 +45,9 @@ namespace Lab2_PWA_Juegos.Controllers
             try
             {
                 _entranceRepository.Add(entrance);
+
+                TempData["createentrance"] = "Datos guardados exitosamente";
+
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -85,6 +88,9 @@ namespace Lab2_PWA_Juegos.Controllers
             try
             {
                 _entranceRepository.Edit(entrance);
+
+                TempData["editdentrance"] = "Datos editados exitosamente";
+
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -124,7 +130,7 @@ namespace Lab2_PWA_Juegos.Controllers
             {
                 _entranceRepository.Delete(entrance.EntranceID);
 
-                TempData["message"] = "Producto Eliminado Exitosamente";
+                TempData["deleteentrance"] = "Datos eliminados exitosamente";
                 return RedirectToAction(nameof(Index));
             }
             catch
