@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Lab2_PWA_Juegos</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Views\CustomersViews\**" />
+    <Compile Remove="Views\SuppliersViews\**" />
+    <Content Remove="Views\CustomersViews\**" />
+    <Content Remove="Views\SuppliersViews\**" />
+    <EmbeddedResource Remove="Views\CustomersViews\**" />
+    <EmbeddedResource Remove="Views\SuppliersViews\**" />
+    <None Remove="Views\CustomersViews\**" />
+    <None Remove="Views\SuppliersViews\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.35" />
+    <PackageReference Include="FluentValidation" Version="11.9.0" />
+    <PackageReference Include="MailKit" Version="4.4.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.3" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
+  </ItemGroup>
+
+</Project>

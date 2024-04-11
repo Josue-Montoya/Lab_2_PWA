@@ -11,8 +11,6 @@
         <div class="col-md-12">
             <div class="mt-3 mb-3">
                 <a asp-action="Create" asp-controller="Products" class="btn btn-success">Agregar Nuevo</a>
-                <a asp-action="Create" asp-controller="Products" class="btn btn-success">Agregar nuevo</a>
-
             </div>
             <table class="table table-bordered table-striped table-responsive" id="ProductsTable">
                 <thead>
@@ -48,8 +46,7 @@
                                 @Html.DisplayFor(modelItem => item.PDescription)
                             </td>
                             <td>
-                                $@Html.DisplayFor(modelItem => item.Price)
-
+                                @Html.DisplayFor(modelItem => item.Price)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Stock)

@@ -87,9 +87,9 @@ GO
 
 CREATE PROCEDURE dbo.spCustomers_Insert
 (
-	@CName nvarchar(255),
-	@Email nvarchar(255),
-	@Phone nvarchar(20)
+	@CName VARCHAR(255),
+	@Email VARCHAR(255),
+	@Phone VARCHAR(20)
 )
 AS
 BEGIN
@@ -101,9 +101,9 @@ GO
 
 CREATE PROCEDURE dbo.spCustomers_Update
 (
-	@CName nvarchar(255),
-	@Email nvarchar(255),
-	@Phone nvarchar(20),
+	@CName VARCHAR(255),
+	@Email VARCHAR(255),
+	@Phone VARCHAR(20),
 	@CustomerID int
 )
 AS
@@ -146,10 +146,10 @@ GO
 
 CREATE PROCEDURE dbo.spEmployees_Insert
 (
-	@EName nvarchar(255),
-	@Lastname nvarchar(255),
-	@Email nvarchar(20),
-	@Phone VARCHAR(255)
+	@EName VARCHAR(255),
+	@Lastname VARCHAR(255),
+	@Email VARCHAR(255),
+	@Phone VARCHAR(20)
 )
 AS
 BEGIN
@@ -161,10 +161,10 @@ GO
 
 CREATE PROCEDURE dbo.spEmployees_Update
 (
-	@EName nvarchar(255),
-	@Lastname nvarchar(255),
-	@Email nvarchar(20),
-	@Phone VARCHAR(255),
+	@EName VARCHAR(255),
+	@Lastname VARCHAR(255),
+	@Email VARCHAR(255),
+	@Phone VARCHAR(20),
 	@EmployeeID int
 )
 AS
@@ -209,9 +209,9 @@ GO
 
 CREATE PROCEDURE dbo.spSuppliers_Insert
 (
-	@SName nvarchar(255),
-	@SAddress nvarchar(255),
-	@Phone nvarchar(20),
+	@SName VARCHAR(255),
+	@SAddress VARCHAR(255),
+	@Phone VARCHAR(20),
 	@Email VARCHAR(255)
 )
 AS
@@ -224,9 +224,9 @@ GO
 
 CREATE PROCEDURE dbo.spSuppliers_Update
 (
-	@SName nvarchar(255),
-	@SAddress nvarchar(255),
-	@Phone nvarchar(20),
+	@SName VARCHAR(255),
+	@SAddress VARCHAR(255),
+	@Phone VARCHAR(20),
 	@Email VARCHAR(255),
 	@SupplierID int
 )
@@ -478,10 +478,9 @@ BEGIN
     DELETE FROM Departures
     WHERE DepartureID = @DepartureID;
 END;
-<<<<<<< HEAD
 GO
 
-Alter TRIGGER UpdateProductStockOnDepartures
+CREATE TRIGGER UpdateProductStockOnDepartures
 ON Departures
 AFTER INSERT
 AS
@@ -499,7 +498,7 @@ END;
 
 GO
 
-ALTER TRIGGER UpdateProductStock
+CREATE TRIGGER UpdateProductStock
 ON Entrance
 AFTER INSERT
 AS
@@ -509,9 +508,4 @@ BEGIN
     FROM Products
     INNER JOIN inserted ON Products.ProductID = inserted.ProductID;
 END;
-
-Go
-
-=======
 GO
->>>>>>> 8512da874a2eb4796883b6cc317afd09b0057544

@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using Lab2_PWA_Juegos.Data;
 using Lab2_PWA_Juegos.Models;
-using Lab2_PWA_Juegos.Repositories.Suppliers;
 using System.Data;
 
 namespace Lab2_PWA_Juegos.Repositories.Employees
